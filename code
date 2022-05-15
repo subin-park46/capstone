@@ -1,0 +1,31 @@
+# docker 설치
+sudo yum –y upgrade
+sudo yum –y install docker
+docker ps –a
+sudo systemctl start docker
+sudo setfacl –m user:ec2-user:rw /var/run/docker.sock
+docker ps –a
+
+# docker 이미지 가져오기
+docker pull ubuntu
+docker images
+docker ps
+docker run –dp 80:80 [container name]
+docker start
+
+# sysbench 설치
+sudo yum update
+sudo curl –s
+https://packagecloud.io/install/repositories/akopytov/sysbench/script.rpm.sh | sudo bash
+sudo yum -y install sysbench
+
+# cpu 테스트
+cat /proc/cpuinfo | grep CPU | wc –l # 메모리 수 확인
+sysbench cpu --events=10000 --cpu-max-prime=20000 --time=0 --threads=메모리수 run
+
+# memory 테스트
+# - read test
+sysbench -—test=memory -—memory-block-size=1K -—memory-scope=global -—memory-total-size=100G —-memory-oper=read run
+
+# - write test
+sysbench —-test=memory -—memory-block-size=1K -—memory-scope=global —-memory-total-size=100G -—memory-oper=write run
